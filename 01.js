@@ -1,3 +1,4 @@
+
 class PaginationHelper {
   constructor(collection, itemsPerPage) {
     // The constructor takes in an array of items and an integer indicating how many
