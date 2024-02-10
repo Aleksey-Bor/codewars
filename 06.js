@@ -5,14 +5,24 @@ function isInteresting(number, awesomePhrases) {
     let numberPlus1 = number + 1;
     let numberPlus2 = number + 2;
 
-    let strings = [number + "", numberPlus1 + "", numberPlus2 + ""];
+    function stringMaker(digits) {
+      return digits + "";
+    }
 
-    let allZeroes = strings.every((string) => {
+    let sameDigits = (digits) => {
+      let string = stringMaker(digits);
+      string.split("").every((digit) => digit === string[0]);
+    };
+
+    let allZeroes = (digits) => {
+      let string = stringMaker(digits);
       let restDigits = string.slice(1).split("").map(Number);
       return restDigits.every((digit) => digit === 0);
-    });
+    };
 
-    let ascendingOrDescending = strings.every((string) => {
+    let ascendingOrDescending = (digits) => {
+      let string = stringMaker(digits);
+
       for (let i = 0; i < string.length; i++) {
         if (
           string[i] + 1 === string[i + 1] ||
@@ -21,16 +31,40 @@ function isInteresting(number, awesomePhrases) {
           return true;
         } else return false;
       }
-    });
+    };
 
-    let isPalindrome = strings.every((string) => {
+    let isPalindrome = (digits) => {
+      let string = stringMaker(digits);
       let reversedString = string.split("").reverse().join("");
-      if (string === reversedString) return true;
-    });
+      if (string === reversedString) {
+        return true;
+      } else return false;
+    };
 
-    if (allZeroes || isPalindrome) {
+    let isAwesomePhrases = (number) => {
+      return awesomePhrases.some((digit) => digit === number);
+    };
+
+    if (
+      allZeroes(number) ||
+      sameDigits(number) ||
+      ascendingOrDescending(number) ||
+      isPalindrome(number) ||
+      isAwesomePhrases(number)
+    ) {
       return 2;
-    } else if (ascendingOrDescending) {
+    } else if (
+      allZeroes(numberPlus1) ||
+      allZeroes(numberPlus2) ||
+      sameDigits(numberPlus1) ||
+      sameDigits(numberPlus2) ||
+      ascendingOrDescending(numberPlus1) ||
+      ascendingOrDescending(numberPlus2) ||
+      isPalindrome(numberPlus1) ||
+      isPalindrome(numberPlus2) ||
+      isAwesomePhrases(numberPlus1) ||
+      isAwesomePhrases(numberPlus2)
+    ) {
       return 1;
     }
   }
