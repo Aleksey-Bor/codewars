@@ -1,26 +1,41 @@
 // https://www.codewars.com/kata/52b7ed099cdc285c300001cd/train/javascript
 
 function sumIntervals(intervals) {
+  // Сортируем интервалы по начальному значению
   var sortedIntervals = intervals.sort((a, b) => a[0] - b[0]);
+  // Создаем массив для объединенных интервалов и добавляем туда первый отсортированный интервал
   var mergedIntervals = [sortedIntervals[0]];
 
+  // Проходим по оставшимся отсортированным интервалам
   for (var i = 1; i < sortedIntervals.length; i++) {
-      var lastMergedInterval = mergedIntervals[mergedIntervals.length - 1];
-      var currentInterval = sortedIntervals[i];
+    // Берем последний объединенный интервал
+    var lastMergedInterval = mergedIntervals[mergedIntervals.length - 1];
+    // Берем текущий отсортированный интервал
+    var currentInterval = sortedIntervals[i];
 
-      if (currentInterval[0] <= lastMergedInterval[1]) {
-          lastMergedInterval[1] = Math.max(lastMergedInterval[1], currentInterval[1]);
-      } else {
-          mergedIntervals.push(currentInterval);
-      }
+    // Если текущий интервал пересекается с последним объединенным интервалом
+    if (currentInterval[0] <= lastMergedInterval[1]) {
+      // Обновляем конец последнего объединенного интервала, если он меньше, чем конец текущего интервала
+      lastMergedInterval[1] = Math.max(
+        lastMergedInterval[1],
+        currentInterval[1]
+      );
+    } else {
+      // Если интервалы не пересекаются, добавляем текущий интервал в массив объединенных интервалов
+      mergedIntervals.push(currentInterval);
+    }
   }
 
-  return mergedIntervals.reduce((sum, interval) => sum + interval[1] - interval[0], 0);
+  // Возвращаем сумму длин всех объединенных интервалов
+  return mergedIntervals.reduce(
+    (sum, interval) => sum + interval[1] - interval[0],
+    0
+  );
 }
 
 console.log(sumIntervals([[5, 8]])); //4
 
- console.log(
+console.log(
   sumIntervals([
     [1, 2],
     [6, 10],
