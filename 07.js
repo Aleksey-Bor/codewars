@@ -33,7 +33,7 @@ function sumIntervals(intervals) {
   );
 }
 
-console.log(sumIntervals([[5, 8]])); //4
+console.log(sumIntervals([[5, 8]])); //3
 
 console.log(
   sumIntervals([
