@@ -1,17 +1,21 @@
 // https://www.codewars.com/kata/52b7ed099cdc285c300001cd/train/javascript
 
 function sumIntervals(intervals) {
-  let set = new Set();
+  var sortedIntervals = intervals.sort((a, b) => a[0] - b[0]);
+  var mergedIntervals = [sortedIntervals[0]];
 
-  intervals.forEach(function (arrayWithRanges) {
-    let startOfRange = arrayWithRanges[0];
-    let endOfRange = arrayWithRanges[1];
+  for (var i = 1; i < sortedIntervals.length; i++) {
+      var lastMergedInterval = mergedIntervals[mergedIntervals.length - 1];
+      var currentInterval = sortedIntervals[i];
 
-    for (let i = startOfRange; i <= endOfRange; i++) {
-      set.add(i);
-    }
-  });
-  return set;
+      if (currentInterval[0] <= lastMergedInterval[1]) {
+          lastMergedInterval[1] = Math.max(lastMergedInterval[1], currentInterval[1]);
+      } else {
+          mergedIntervals.push(currentInterval);
+      }
+  }
+
+  return mergedIntervals.reduce((sum, interval) => sum + interval[1] - interval[0], 0);
 }
 
 console.log(sumIntervals([[5, 8]])); //4
