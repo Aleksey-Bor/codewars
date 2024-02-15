@@ -20,6 +20,7 @@ function sumIntervals(intervals) {
         lastMergedInterval[1],
         currentInterval[1]
       );
+     
     } else {
       // Если интервалы не пересекаются, добавляем текущий интервал в массив объединенных интервалов
       mergedIntervals.push(currentInterval);
@@ -33,17 +34,17 @@ function sumIntervals(intervals) {
   );
 }
 
-console.log(sumIntervals([[5, 8]])); //3
+// console.log(sumIntervals([[5, 8]])); //3
 
-console.log(
+/* console.log(
   sumIntervals([
     [1, 2],
     [6, 10],
     [11, 15],
   ])
-); //9
+); //9 */
 
-/*console.log(
+console.log(
   sumIntervals([
     [1, 4],
     [7, 10],
@@ -51,7 +52,7 @@ console.log(
   ])
 ); //7
 
-console.log(
+/*console.log(
   sumIntervals([
     [1, 5],
     [10, 20],
